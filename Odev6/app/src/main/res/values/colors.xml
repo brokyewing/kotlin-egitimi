@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="amazon_dark">#00050D</color>
+    <color name="amazon_accent">#00A8E1</color>
+    <color name="amazon_background">#0F171E</color>
+    <color name="amazon_surface">#1A242F</color>
+    <color name="amazon_text_primary">#FFFFFF</color>
+    <color name="amazon_text_secondary">#8197A4</color>
+</resources>

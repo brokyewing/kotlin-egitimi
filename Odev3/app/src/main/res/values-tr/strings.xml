@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">getir</string>
+    <string name="hamburgerBaslik">Tavuk Burger ve Patates Kızartması</string>
+    <string name="hamburgerAciklama">Çıtır tavuk burger eti, iceberg marul, domates, soğan, turşu, ketçap, mayonez ,dip sos ve patetes kızartması ile</string>
+    <string name="cıkarılacakMalzemeler">Çıkarılacak Malzemeler</string>
+    <string name="soğanYazi">Kıtır Soğan</string>
+    <string name="marulYazi">Iceberg Marul</string>
+    <string name="mayonezYazi">Mayonez</string>
+    <string name="domatesYazi">Domates</string>
+    <string name="turşuYazi">Turşu</string>"
+    <string name="ketçapYazi">Ketçap</string>
+    <string name="sosYazi">Dip Sos</string>
+    <string name="fiyatYazi">₺175,00 </string>
+    <string name="buttonYazi">SEPETE EKLE</string>
+</resources>

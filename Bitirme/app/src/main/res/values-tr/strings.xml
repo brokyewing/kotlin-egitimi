@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Broky Food</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Ana Sayfa</string>
+    <string name="nav_cart">Sepetim</string>
+    
+    <!-- Home Screen -->
+    <string name="welcome_message">Ne yemek istersiniz?</string>
+    <string name="order_subtitle">Sipariş verin ve dakikalar içinde teslim alın</string>
+    <string name="search_hint">Yemek Ara</string>
+    
+    <!-- Detail Screen -->
+    <string name="quantity">Miktar</string>
+    <string name="add_to_cart">Sepete Ekle</string>
+    
+    <!-- Cart Screen -->
+    <string name="cart_empty">Sepetiniz boş</string>
+    <string name="order_summary">Sipariş Özeti</string>
+    <string name="total_items">Toplam Ürün:</string>
+    <string name="total_price">Toplam Tutar:</string>
+    <string name="checkout">Siparişi Tamamla</string>
+    <string name="order_completed">Sipariş tamamlandı!</string>
+    <string name="items_count">%d adet</string>
+    <string name="price_format">₺%d</string>
+    
+    <!-- Content Descriptions -->
+    <string name="cd_food_image">Yemek resmi</string>
+    <string name="cd_remove_from_cart">Sepetten kaldır</string>
+    <string name="cd_decrease_quantity">Miktarı azalt</string>
+    <string name="cd_increase_quantity">Miktarı artır</string>
+
+    <!-- Messages -->
+    <string name="added_to_cart">Sepete eklendi</string>
+    <string name="failed_to_add">Sepete eklenemedi</string>
+    <string name="error_occurred">Bir hata oluştu</string>
+</resources> 

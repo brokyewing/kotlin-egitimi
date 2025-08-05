@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Broky Food</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_cart">Cart</string>
+    
+    <!-- Home Screen -->
+    <string name="welcome_message">What would you like to eat?</string>
+    <string name="order_subtitle">Order &amp; get delivery in minutes</string>
+    <string name="search_hint">Search Food</string>
+    
+    <!-- Detail Screen -->
+    <string name="quantity">Quantity</string>
+    <string name="add_to_cart">Add to Cart</string>
+    
+    <!-- Cart Screen -->
+    <string name="cart_empty">Your cart is empty</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="total_items">Total Items:</string>
+    <string name="total_price">Total Price:</string>
+    <string name="checkout">Checkout</string>
+    <string name="order_completed">Order completed!</string>
+    <string name="items_count">%d items</string>
+    <string name="price_format">$%d</string>
+    
+    <!-- Content Descriptions -->
+    <string name="cd_food_image">Food image</string>
+    <string name="cd_remove_from_cart">Remove from cart</string>
+    <string name="cd_decrease_quantity">Decrease quantity</string>
+    <string name="cd_increase_quantity">Increase quantity</string>
+
+    <!-- Messages -->
+    <string name="added_to_cart">Added to cart</string>
+    <string name="failed_to_add">Failed to add to cart</string>
+    <string name="error_occurred">An error occurred</string>
+</resources>
