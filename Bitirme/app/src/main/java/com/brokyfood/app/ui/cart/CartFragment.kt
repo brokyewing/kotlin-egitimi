@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.brokyfood.app.R
 import com.brokyfood.app.databinding.FragmentCartBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -44,6 +46,11 @@ class CartFragment : Fragment() {
         observeUiState()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadCartItems()
+    }
+
     private fun setupRecyclerView() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -53,7 +60,7 @@ class CartFragment : Fragment() {
 
     private fun setupCheckoutButton() {
         binding.checkoutButton.setOnClickListener {
-            // Siparişi tamamla işlemi
+            viewModel.checkout()
         }
     }
 
@@ -66,8 +73,13 @@ class CartFragment : Fragment() {
                     binding.checkoutButton.visibility = if (state.cartItems.isNotEmpty()) View.VISIBLE else View.GONE
 
                     adapter.submitList(state.cartItems)
-                    binding.itemCount.text = getString(com.brokyfood.app.R.string.items_count, state.cartItems.sumOf { it.quantity })
-                    binding.totalPrice.text = getString(com.brokyfood.app.R.string.price_format, state.totalPrice)
+                    binding.itemCount.text = getString(R.string.items_count, state.cartItems.sumOf { it.quantity })
+                    binding.totalPrice.text = getString(R.string.price_format, state.totalPrice)
+
+                    state.messageResId?.let { resId ->
+                        Toast.makeText(requireContext(), getString(resId), Toast.LENGTH_SHORT).show()
+                        viewModel.messageShown()
+                    }
                 }
             }
         }
@@ -77,4 +89,4 @@ class CartFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-} 
+}

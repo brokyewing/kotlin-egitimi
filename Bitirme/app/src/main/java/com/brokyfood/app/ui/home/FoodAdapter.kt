@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brokyfood.app.R
 import com.brokyfood.app.data.model.Food
 import com.brokyfood.app.databinding.ItemFoodBinding
+import com.brokyfood.app.util.Constants
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
@@ -35,6 +36,7 @@ class FoodAdapter(
 
         init {
             binding.root.setOnClickListener {
+                @Suppress("DEPRECATION")
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     onFoodClick(getItem(position))
@@ -46,9 +48,9 @@ class FoodAdapter(
             binding.apply {
                 foodName.text = food.name
                 foodPrice.text = root.context.getString(R.string.price_format, food.price)
-                
+
                 Glide.with(foodImage)
-                    .load("http://kasimadalan.pe.hu/yemekler/resimler/${food.imageUrl}")
+                    .load(Constants.imageUrl(food.imageUrl))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.food_placeholder)
                     .error(R.drawable.food_error)
@@ -66,4 +68,4 @@ class FoodAdapter(
             return oldItem == newItem
         }
     }
-} 
+}

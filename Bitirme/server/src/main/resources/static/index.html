@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Broky Food — Kotlin Android &amp; Canlı Sunucu Demosu</title>
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --surface: #13171d;
+      --surface-2: #1b212a;
+      --border: #262e3b;
+      --text: #f3f5f8;
+      --muted: #9aa4b2;
+      --primary: #ff5722;
+      --primary-hover: #ff7043;
+      --accent: #1976d2;
+      --success: #22c55e;
+      --danger: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(11, 13, 16, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), #ff8a50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(255, 87, 34, 0.35);
+    }
+    .brand-title { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+    .brand-sub { font-size: 12px; color: var(--muted); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .btn:hover { border-color: #3b4659; background: #232b36; }
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 920px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+    .hero-card {
+      background: linear-gradient(135deg, rgba(25, 118, 210, 0.18), rgba(255, 87, 34, 0.14));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hero-card h1 { font-size: 22px; margin-bottom: 4px; }
+    .hero-card p { color: var(--muted); font-size: 14px; max-width: 620px; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      color: #d0d7e2;
+    }
+    .search-bar {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 18px;
+      outline: none;
+    }
+    .search-bar:focus { border-color: var(--primary); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .food-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .food-card:hover { transform: translateY(-2px); border-color: #384357; }
+    .food-img-wrap {
+      height: 150px;
+      background: radial-gradient(circle at center, #252d3a, #151921);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+    .food-img-wrap img {
+      max-height: 126px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .food-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .food-title { font-weight: 600; font-size: 16px; }
+    .food-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+    .price { font-weight: 700; font-size: 17px; color: var(--primary); }
+    .cart-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      position: sticky;
+      top: 84px;
+    }
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cart-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 10px;
+      border-radius: 12px;
+    }
+    .cart-item img { width: 46px; height: 46px; object-fit: contain; border-radius: 8px; background: #12161c; }
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-name { font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cart-item-sub { font-size: 12px; color: var(--muted); }
+    .qty-controls { display: flex; align-items: center; gap: 6px; }
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .qty-btn:hover { border-color: var(--primary); }
+    .cart-summary {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 700;
+      margin: 12px 0 16px;
+    }
+    .empty-msg {
+      color: var(--muted);
+      text-align: center;
+      padding: 28px 10px;
+      font-size: 14px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: #1e293b;
+      border: 1px solid var(--border);
+      color: #fff;
+      font-size: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="brand-logo">BF</div>
+        <div>
+          <div class="brand-title">Broky Food</div>
+          <div class="brand-sub" id="brandSub">Kotlin Android Uygulaması &amp; Canlı API Demosu</div>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <span class="badge"><span class="dot"></span> <span id="apiStatus">API Aktif (SQLite)</span></span>
+        <button class="btn" id="langBtn" type="button">EN</button>
+        <a class="btn" href="brokyfood.apk" id="apkBtn" download>📱 Android APK İndir</a>
+        <a class="btn" href="https://github.com/brokyewing/kotlin-egitimi/tree/main/Bitirme" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section>
+      <div class="hero-card">
+        <div>
+          <h1 id="heroTitle">Ne yemek istersiniz?</h1>
+          <p id="heroDesc">
+            Bu ekran, Android uygulamasının bağlandığı Kotlin + SQLite arka ucuyla doğrudan konuşur.
+            Yemek arayabilir, sepete ekleyebilir, adet güncelleyebilir ve siparişi tamamlayabilirsiniz.
+          </p>
+          <div class="tech-tags">
+            <span class="tag">Kotlin</span>
+            <span class="tag">MVVM + Hilt</span>
+            <span class="tag">Retrofit + OkHttp</span>
+            <span class="tag">Coroutines + StateFlow</span>
+            <span class="tag">SQLite Sunucu</span>
+          </div>
+        </div>
+      </div>
+
+      <input type="search" id="searchInput" class="search-bar" placeholder="Yemek ara (örn. Baklava, Pizza, Köfte)..." />
+      <div id="foodGrid" class="grid"></div>
+    </section>
+
+    <aside class="cart-panel">
+      <div class="cart-header">
+        <h2 style="font-size:18px;" id="cartTitle">Sepetim</h2>
+        <span class="badge" id="cartBadge">0 adet</span>
+      </div>
+      <div id="cartList" class="cart-list"></div>
+      <div id="cartSummary" class="cart-summary" style="display:none;">
+        <div class="summary-row">
+          <span id="totalItemsLabel">Toplam Ürün:</span>
+          <span id="totalItemsVal">0</span>
+        </div>
+        <div class="summary-total">
+          <span id="totalPriceLabel">Toplam Tutar:</span>
+          <span id="totalPriceVal" style="color:var(--primary);">₺0</span>
+        </div>
+        <button class="btn btn-primary" style="width:100%;padding:12px;" id="checkoutBtn" type="button">
+          Siparişi Tamamla
+        </button>
+      </div>
+    </aside>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const i18n = {
+      tr: {
+        brandSub: "Kotlin Android Uygulaması & Canlı API Demosu",
+        apiStatus: "API Aktif (SQLite)",
+        apkBtn: "📱 Android APK İndir",
+        heroTitle: "Ne yemek istersiniz?",
+        heroDesc: "Bu ekran, Android uygulamasının bağlandığı Kotlin + SQLite arka ucuyla doğrudan konuşur. Yemek arayabilir, sepete ekleyebilir, adet güncelleyebilir ve siparişi tamamlayabilirsiniz.",
+        searchPlaceholder: "Yemek ara (örn. Baklava, Pizza, Köfte)...",
+        cartTitle: "Sepetim",
+        emptyCart: "Sepetiniz boş. Menüden yemek ekleyebilirsiniz.",
+        addBtn: "+ Sepete Ekle",
+        totalItemsLabel: "Toplam Ürün:",
+        totalPriceLabel: "Toplam Tutar:",
+        checkoutBtn: "Siparişi Tamamla",
+        addedToast: "Sepete eklendi",
+        orderDoneToast: "Siparişiniz başarıyla tamamlandı!",
+        errorToast: "İşlem sırasında bir hata oluştu",
+        itemsUnit: "adet"
+      },
+      en: {
+        brandSub: "Kotlin Android App & Live API Demo",
+        apiStatus: "API Online (SQLite)",
+        apkBtn: "📱 Download Android APK",
+        heroTitle: "What would you like to eat?",
+        heroDesc: "This web preview talks directly to the same Kotlin + SQLite backend powering the Android app. Search dishes, add to cart, update quantities, and complete your order.",
+        searchPlaceholder: "Search food (e.g. Baklava, Pizza, Köfte)...",
+        cartTitle: "My Cart",
+        emptyCart: "Your cart is empty. Add items from the menu.",
+        addBtn: "+ Add to Cart",
+        totalItemsLabel: "Total Items:",
+        totalPriceLabel: "Total Price:",
+        checkoutBtn: "Complete Order",
+        addedToast: "Added to cart",
+        orderDoneToast: "Order completed successfully!",
+        errorToast: "An error occurred",
+        itemsUnit: "items"
+      }
+    };
+
+    let lang = localStorage.getItem("broky_lang") || "tr";
+    let username = localStorage.getItem("broky_user");
+    if (!username) {
+      username = "web_" + Math.random().toString(36).substring(2, 10);
+      localStorage.setItem("broky_user", username);
+    }
+
+    let allFoods = [];
+    let cartItems = [];
+
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 2200);
+    }
+
+    function applyLang() {
+      const t = i18n[lang];
+      document.documentElement.lang = lang;
+      document.getElementById("langBtn").textContent = lang === "tr" ? "EN" : "TR";
+      document.getElementById("brandSub").textContent = t.brandSub;
+      document.getElementById("apiStatus").textContent = t.apiStatus;
+      document.getElementById("apkBtn").textContent = t.apkBtn;
+      document.getElementById("heroTitle").textContent = t.heroTitle;
+      document.getElementById("heroDesc").textContent = t.heroDesc;
+      document.getElementById("searchInput").placeholder = t.searchPlaceholder;
+      document.getElementById("cartTitle").textContent = t.cartTitle;
+      document.getElementById("totalItemsLabel").textContent = t.totalItemsLabel;
+      document.getElementById("totalPriceLabel").textContent = t.totalPriceLabel;
+      document.getElementById("checkoutBtn").textContent = t.checkoutBtn;
+      renderFoods();
+      renderCart();
+    }
+
+    async function loadFoods() {
+      const res = await fetch("yemekler/tumYemekleriGetir.php");
+      const data = await res.json();
+      allFoods = data.yemekler || [];
+      renderFoods();
+    }
+
+    async function loadCart() {
+      const body = new URLSearchParams({ kullanici_adi: username });
+      const res = await fetch("yemekler/sepettekiYemekleriGetir.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body
+      });
+      const data = await res.json();
+      cartItems = data.sepet_yemekler || [];
+      renderCart();
+    }
+
+    function renderFoods() {
+      const q = document.getElementById("searchInput").value.trim().toLowerCase();
+      const filtered = q ? allFoods.filter(f => f.yemek_adi.toLowerCase().includes(q)) : allFoods;
+      const grid = document.getElementById("foodGrid");
+      grid.innerHTML = "";
+      const t = i18n[lang];
+
+      filtered.forEach(food => {
+        const card = document.createElement("div");
+        card.className = "food-card";
+        card.innerHTML = `
+          <div class="food-img-wrap">
+            <img src="yemekler/resimler/${encodeURIComponent(food.yemek_resim_adi)}" alt="${food.yemek_adi}" loading="lazy" />
+          </div>
+          <div class="food-body">
+            <div class="food-title">${food.yemek_adi}</div>
+            <div class="food-footer">
+              <span class="price">₺${food.yemek_fiyat}</span>
+              <button class="btn btn-primary" type="button">${t.addBtn}</button>
+            </div>
+          </div>
+        `;
+        card.querySelector("button").addEventListener("click", () => addToCart(food));
+        grid.appendChild(card);
+      });
+    }
+
+    function renderCart() {
+      const t = i18n[lang];
+      const list = document.getElementById("cartList");
+      const summary = document.getElementById("cartSummary");
+      const totalCount = cartItems.reduce((acc, item) => acc + Number(item.yemek_siparis_adet), 0);
+      const totalPrice = cartItems.reduce((acc, item) => acc + Number(item.yemek_siparis_adet) * Number(item.yemek_fiyat), 0);
+
+      document.getElementById("cartBadge").textContent = `${totalCount} ${t.itemsUnit}`;
+      list.innerHTML = "";
+
+      if (cartItems.length === 0) {
+        list.innerHTML = `<div class="empty-msg">${t.emptyCart}</div>`;
+        summary.style.display = "none";
+        return;
+      }
+
+      summary.style.display = "block";
+      document.getElementById("totalItemsVal").textContent = `${totalCount} ${t.itemsUnit}`;
+      document.getElementById("totalPriceVal").textContent = `₺${totalPrice}`;
+
+      cartItems.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "cart-item";
+        row.innerHTML = `
+          <img src="yemekler/resimler/${encodeURIComponent(item.yemek_resim_adi)}" alt="${item.yemek_adi}" />
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.yemek_adi}</div>
+            <div class="cart-item-sub">₺${item.yemek_fiyat} × ${item.yemek_siparis_adet} = <strong>₺${item.yemek_fiyat * item.yemek_siparis_adet}</strong></div>
+          </div>
+          <div class="qty-controls">
+            <button class="qty-btn" data-act="dec" type="button">−</button>
+            <span style="min-width:18px;text-align:center;font-size:13px;font-weight:600;">${item.yemek_siparis_adet}</span>
+            <button class="qty-btn" data-act="inc" type="button">+</button>
+          </div>
+        `;
+        row.querySelector('[data-act="dec"]').addEventListener("click", () => updateQty(item, Number(item.yemek_siparis_adet) - 1));
+        row.querySelector('[data-act="inc"]').addEventListener("click", () => updateQty(item, Number(item.yemek_siparis_adet) + 1));
+        list.appendChild(row);
+      });
+    }
+
+    async function addToCart(food) {
+      const t = i18n[lang];
+      const body = new URLSearchParams({
+        yemek_adi: food.yemek_adi,
+        yemek_resim_adi: food.yemek_resim_adi,
+        yemek_fiyat: String(food.yemek_fiyat),
+        yemek_siparis_adet: "1",
+        kullanici_adi: username
+      });
+      const res = await fetch("yemekler/sepeteYemekEkle.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body
+      });
+      const data = await res.json();
+      if (data.success === 1) {
+        showToast(`${food.yemek_adi} — ${t.addedToast}`);
+        await loadCart();
+      } else {
+        showToast(t.errorToast);
+      }
+    }
+
+    async function updateQty(item, newQty) {
+      const body = new URLSearchParams({
+        sepet_yemek_id: String(item.sepet_yemek_id),
+        kullanici_adi: username,
+        yemek_siparis_adet: String(newQty)
+      });
+      await fetch("yemekler/sepetAdetGuncelle.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body
+      });
+      await loadCart();
+    }
+
+    async function checkout() {
+      const t = i18n[lang];
+      const body = new URLSearchParams({ kullanici_adi: username });
+      const res = await fetch("yemekler/siparisTamamla.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body
+      });
+      const data = await res.json();
+      if (data.success === 1) {
+        showToast(t.orderDoneToast);
+        await loadCart();
+      } else {
+        showToast(t.errorToast);
+      }
+    }
+
+    document.getElementById("langBtn").addEventListener("click", () => {
+      lang = lang === "tr" ? "en" : "tr";
+      localStorage.setItem("broky_lang", lang);
+      applyLang();
+    });
+    document.getElementById("searchInput").addEventListener("input", renderFoods);
+    document.getElementById("checkoutBtn").addEventListener("click", checkout);
+
+    applyLang();
+    loadFoods();
+    loadCart();
+  </script>
+</body>
+</html>

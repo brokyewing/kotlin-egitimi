@@ -1,0 +1,20 @@
+services:
+  brokyfood:
+    build:
+      context: .
+      dockerfile: Dockerfile.runtime
+    image: brokyfood-server:latest
+    restart: unless-stopped
+    mem_limit: 256m
+    environment:
+      PORT: "8080"
+      DB_PATH: "/app/data/brokyfood.db"
+      APK_PATH: "/app/brokyfood.apk"
+      JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=60.0 -XX:+UseSerialGC"
+    ports:
+      - "127.0.0.1:${HOST_PORT:-18095}:8080"
+    volumes:
+      - brokyfood_data:/app/data
+
+volumes:
+  brokyfood_data:

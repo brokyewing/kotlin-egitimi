@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brokyfood.app.R
 import com.brokyfood.app.data.model.CartFood
 import com.brokyfood.app.databinding.ItemCartBinding
+import com.brokyfood.app.util.Constants
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
@@ -36,6 +37,7 @@ class CartAdapter(
 
         init {
             binding.removeButton.setOnClickListener {
+                @Suppress("DEPRECATION")
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     onRemoveClick(getItem(position))
@@ -43,16 +45,20 @@ class CartAdapter(
             }
 
             binding.decreaseButton.setOnClickListener {
+                @Suppress("DEPRECATION")
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val item = getItem(position)
                     if (item.quantity > 1) {
                         onQuantityChanged(item, item.quantity - 1)
+                    } else {
+                        onRemoveClick(item)
                     }
                 }
             }
 
             binding.increaseButton.setOnClickListener {
+                @Suppress("DEPRECATION")
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val item = getItem(position)
@@ -67,16 +73,13 @@ class CartAdapter(
                 foodPrice.text = root.context.getString(R.string.price_format, cartFood.price)
                 quantity.text = root.context.getString(R.string.items_count, cartFood.quantity)
                 totalPrice.text = root.context.getString(R.string.price_format, cartFood.price * cartFood.quantity)
-                
+
                 Glide.with(foodImage)
-                    .load("http://kasimadalan.pe.hu/yemekler/resimler/${cartFood.imageUrl}")
+                    .load(Constants.imageUrl(cartFood.imageUrl))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.food_placeholder)
                     .error(R.drawable.food_error)
                     .into(foodImage)
-
-                decreaseButton.isEnabled = cartFood.quantity > 1
-                increaseButton.isEnabled = true
             }
         }
     }
@@ -90,4 +93,4 @@ class CartAdapter(
             return oldItem == newItem
         }
     }
-} 
+}

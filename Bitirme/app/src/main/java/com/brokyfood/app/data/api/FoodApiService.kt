@@ -27,10 +27,24 @@ interface FoodApiService {
         @Field("kullanici_adi") username: String
     ): BaseResponse
 
+    @POST("sepetAdetGuncelle.php")
+    @FormUrlEncoded
+    suspend fun updateCartQuantity(
+        @Field("sepet_yemek_id") cartItemId: Int,
+        @Field("kullanici_adi") username: String,
+        @Field("yemek_siparis_adet") quantity: Int
+    ): BaseResponse
+
     @POST("sepettenYemekSil.php")
     @FormUrlEncoded
     suspend fun removeFromCart(
         @Field("sepet_yemek_id") cartItemId: Int,
+        @Field("kullanici_adi") username: String
+    ): BaseResponse
+
+    @POST("siparisTamamla.php")
+    @FormUrlEncoded
+    suspend fun checkout(
         @Field("kullanici_adi") username: String
     ): BaseResponse
 }
@@ -48,4 +62,4 @@ data class CartResponse(
 data class BaseResponse(
     val success: Int = 0,
     val message: String? = null
-) 
+)

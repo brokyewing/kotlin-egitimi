@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,57 +38,40 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return try {
-            _binding = FragmentHomeBinding.inflate(inflater, container, false)
-            binding.root
-        } catch (e: Exception) {
-            Log.e("HomeFragment", "Error in onCreateView", e)
-            View(requireContext())
-        }
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        try {
-            setupRecyclerView()
-            setupSearch()
-            observeUiState()
-        } catch (e: Exception) {
-            Log.e("HomeFragment", "Error in onViewCreated", e)
-        }
+        setupRecyclerView()
+        setupSearch()
+        observeUiState()
     }
 
     private fun setupRecyclerView() {
-        try {
-            binding.recyclerView.apply {
-                layoutManager = GridLayoutManager(requireContext(), 2)
-                adapter = this@HomeFragment.adapter
-            }
-        } catch (e: Exception) {
-            Log.e("HomeFragment", "Error setting up RecyclerView", e)
+        binding.recyclerView.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = this@HomeFragment.adapter
         }
     }
 
     private fun setupSearch() {
-        try {
-            binding.searchInput.doOnTextChanged { text, _, _, _ ->
-                viewModel.onSearchQueryChanged(text?.toString() ?: "")
-            }
-        } catch (e: Exception) {
-            Log.e("HomeFragment", "Error setting up search", e)
+        binding.searchInput.doOnTextChanged { text, _, _, _ ->
+            viewModel.onSearchQueryChanged(text?.toString() ?: "")
         }
     }
 
     private fun observeUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.uiState.collect { state ->
-                        adapter.submitList(state.foods)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    adapter.submitList(state.foods)
+                    state.errorResId?.let { resId ->
+                        Toast.makeText(requireContext(), getString(resId), Toast.LENGTH_SHORT).show()
+                        viewModel.errorShown()
                     }
                 }
-            } catch (e: Exception) {
-                Log.e("HomeFragment", "Error observing UI state", e)
             }
         }
     }
@@ -96,4 +80,4 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-} 
+}

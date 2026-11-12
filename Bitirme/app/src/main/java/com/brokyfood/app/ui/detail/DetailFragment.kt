@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -15,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.brokyfood.app.R
 import com.brokyfood.app.databinding.FragmentDetailBinding
+import com.brokyfood.app.util.Constants
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -46,9 +46,11 @@ class DetailFragment : Fragment() {
         binding.apply {
             foodName.text = food.name
             foodPrice.text = getString(R.string.price_format, food.price)
-            
+
             Glide.with(foodImage)
-                .load("http://kasimadalan.pe.hu/yemekler/resimler/${food.imageUrl}")
+                .load(Constants.imageUrl(food.imageUrl))
+                .placeholder(R.drawable.food_placeholder)
+                .error(R.drawable.food_error)
                 .into(foodImage)
 
             quantityPicker.minValue = 1
@@ -59,7 +61,6 @@ class DetailFragment : Fragment() {
                 viewModel.addToCart(food, quantityPicker.value)
             }
 
-            // Toolbar'ı ayarla
             toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
@@ -86,4 +87,4 @@ class DetailFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-} 
+}

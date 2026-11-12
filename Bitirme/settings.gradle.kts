@@ -20,5 +20,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "BitirmeProjesi"
-include(":app")
+include(":app", ":server")
  
