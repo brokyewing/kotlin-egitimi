@@ -1,0 +1,233 @@
+/**
+ * LezzetKapıda — Three-Layer Design Token System
+ * Layer 1: Primitive Tokens (Raw Scales)
+ * Layer 2: Semantic Tokens (Purpose Aliases)
+ * Layer 3: Component Tokens (Surface & Control Specific)
+ */
+
+:root {
+  /* ==========================================================================
+     1. PRIMITIVE TOKENS — Raw Palette, Spacing, Typography, Radii, Elevation
+     ========================================================================== */
+
+  /* Neutral Warm Stone & Slate Primitives */
+  --color-stone-50: #FAF8F5;
+  --color-stone-100: #F4F0EA;
+  --color-stone-200: #E7E0D6;
+  --color-stone-300: #D5CBBF;
+
+  --color-slate-950: #0B0F19;
+  --color-slate-900: #111827;
+  --color-slate-800: #1E293B;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-500: #64748B;
+  --color-slate-200: #E2E8F0;
+  --color-slate-100: #F1F5F9;
+  --color-white: #FFFFFF;
+
+  /* Brand Flame / Terracotta Primitives (Food & Primary Actions) */
+  --color-flame-50: #FFF7ED;
+  --color-flame-100: #FFEDD5;
+  --color-flame-200: #FED7AA;
+  --color-flame-500: #F97316;
+  --color-flame-600: #EA580C;
+  --color-flame-700: #C2410C;
+  --color-flame-800: #9A3412;
+
+  /* Frost Cyan / Sky Primitives (Dedicated Beverage Station) */
+  --color-frost-50: #F0F9FF;
+  --color-frost-100: #E0F2FE;
+  --color-frost-200: #BAE6FD;
+  --color-frost-600: #0284C7;
+  --color-frost-700: #0369A1;
+  --color-frost-800: #075985;
+
+  /* Amber / Saffron Primitives (Desserts, Bakery & Ratings) */
+  --color-amber-50: #FFFBEB;
+  --color-amber-100: #FEF3C7;
+  --color-amber-200: #FDE68A;
+  --color-amber-600: #D97706;
+  --color-amber-700: #B45309;
+  --color-amber-800: #92400E;
+
+  /* Emerald & Ruby Primitives (Campaigns, Delivery Status & Validation) */
+  --color-emerald-50: #ECFDF5;
+  --color-emerald-100: #D1FAE5;
+  --color-emerald-200: #A7F3D0;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065F46;
+
+  --color-ruby-50: #FEF2F2;
+  --color-ruby-100: #FEE2E2;
+  --color-ruby-200: #FECACA;
+  --color-ruby-600: #DC2626;
+  --color-ruby-700: #B91C1C;
+
+  /* Spacing & Sizing Scale (4px Grid) */
+  --space-0: 0;
+  --space-px: 1px;
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-3-5: 14px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Layout Dimensions */
+  --size-container-max: 1420px;
+  --size-sidebar-cart: 300px;
+  --size-drink-station: 270px;
+  --size-modal-max: 500px;
+  --size-search-min: 200px;
+  --size-dish-card-min: 215px;
+  --size-thumb-dish: 80px;
+  --size-thumb-drink: 56px;
+  --size-thumb-cart: 44px;
+  --size-icon-xs: 14px;
+  --size-icon-sm: 16px;
+  --size-icon-md: 18px;
+  --size-icon-lg: 22px;
+  --size-logo: 38px;
+  --size-touch-min: 38px;
+  --size-stepper-btn: 30px;
+
+  /* Border Radius Scale */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* Typography Primitives */
+  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --font-size-2xs: 11px;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-md: 15px;
+  --font-size-lg: 17px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.35;
+  --line-height-normal: 1.5;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Elevation & Shadows */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 8px 20px -4px rgba(15, 23, 42, 0.09);
+  --shadow-lg: 0 18px 36px -8px rgba(15, 23, 42, 0.14);
+  --shadow-modal: 0 24px 48px -12px rgba(11, 15, 25, 0.36);
+
+  /* Motion Tokens */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+
+  /* ==========================================================================
+     2. SEMANTIC TOKENS — Domain & Purpose Aliases
+     ========================================================================== */
+
+  --surface-page: var(--color-stone-50);
+  --surface-card: var(--color-white);
+  --surface-subtle: var(--color-stone-100);
+  --surface-partner: var(--color-slate-950);
+  --surface-partner-elevated: var(--color-slate-800);
+  --surface-backdrop: rgba(11, 15, 25, 0.62);
+
+  --text-primary: var(--color-slate-900);
+  --text-secondary: var(--color-slate-700);
+  --text-muted: var(--color-slate-600);
+  --text-on-brand: var(--color-white);
+  --text-on-partner: var(--color-slate-100);
+  --text-on-partner-muted: var(--color-slate-200);
+
+  --border-default: var(--color-stone-200);
+  --border-strong: var(--color-stone-300);
+  --border-partner: var(--color-slate-700);
+  --focus-ring: var(--color-flame-600);
+
+  /* Marketplace Primary Brand (Flame Orange) */
+  --brand-primary: var(--color-flame-600);
+  --brand-primary-hover: var(--color-flame-700);
+  --brand-primary-active: var(--color-flame-800);
+  --brand-soft-bg: var(--color-flame-50);
+  --brand-soft-border: var(--color-flame-200);
+
+  /* Category 1: Sıcak Ana Yemekler (Warm Flame) */
+  --cat-food-accent: var(--color-flame-600);
+  --cat-food-bg: var(--color-flame-50);
+  --cat-food-border: var(--color-flame-200);
+  --cat-food-text: var(--color-flame-800);
+
+  /* Category 2: Soğuk & Sıcak İçecek İstasyonu (Crisp Frost Blue) */
+  --cat-drink-accent: var(--color-frost-600);
+  --cat-drink-hover: var(--color-frost-700);
+  --cat-drink-bg: var(--color-frost-50);
+  --cat-drink-surface: var(--color-frost-100);
+  --cat-drink-border: var(--color-frost-200);
+  --cat-drink-text: var(--color-frost-800);
+
+  /* Category 3: Tatlılar & Fırın (Warm Saffron Amber) */
+  --cat-sweet-accent: var(--color-amber-600);
+  --cat-sweet-bg: var(--color-amber-50);
+  --cat-sweet-border: var(--color-amber-200);
+  --cat-sweet-text: var(--color-amber-800);
+
+  /* Status & Voucher Semantics */
+  --status-success-bg: var(--color-emerald-50);
+  --status-success-border: var(--color-emerald-200);
+  --status-success-text: var(--color-emerald-700);
+
+  --status-danger-bg: var(--color-ruby-50);
+  --status-danger-border: var(--color-ruby-200);
+  --status-danger-text: var(--color-ruby-700);
+
+  /* ==========================================================================
+     3. COMPONENT TOKENS — Specific Surface Controls
+     ========================================================================== */
+
+  --partner-bar-bg: var(--surface-partner);
+  --partner-btn-cta-bg: var(--brand-primary);
+  --partner-btn-cta-hover: var(--brand-primary-hover);
+  --partner-btn-ghost-bg: var(--surface-partner-elevated);
+
+  --header-bg: rgba(255, 255, 255, 0.96);
+  --dish-card-bg: var(--surface-card);
+  --dish-card-border: var(--border-default);
+  --dish-card-hover-border: var(--brand-soft-border);
+
+  --drink-station-bg: var(--cat-drink-bg);
+  --drink-station-border: var(--cat-drink-border);
+  --drink-card-bg: var(--surface-card);
+
+  --cart-panel-bg: var(--surface-card);
+  --cart-pairing-bg: var(--cat-drink-bg);
+  --cart-pairing-border: var(--cat-drink-border);
+}

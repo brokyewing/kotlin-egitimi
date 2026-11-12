@@ -58,6 +58,15 @@ class BrokyFoodServer(
             (rawPath == "/" || rawPath == "/index.html") && method == "GET" -> {
                 serveClasspathResource(ex, "/static/index.html", "text/html; charset=utf-8")
             }
+            rawPath == "/tokens.css" && method == "GET" -> {
+                serveClasspathResource(ex, "/static/tokens.css", "text/css; charset=utf-8")
+            }
+            rawPath == "/styles.css" && method == "GET" -> {
+                serveClasspathResource(ex, "/static/styles.css", "text/css; charset=utf-8")
+            }
+            rawPath == "/logo.svg" && method == "GET" -> {
+                serveClasspathResource(ex, "/static/logo.svg", "image/svg+xml; charset=utf-8", cacheSeconds = 86400)
+            }
             rawPath == "/app.js" && method == "GET" -> {
                 serveClasspathResource(ex, "/static/app.js", "application/javascript; charset=utf-8")
             }

@@ -1,0 +1,1619 @@
+/**
+ * LezzetKapıda — Marketplace Stylesheet
+ * 100% Token-Driven (Three-Layer Token System in tokens.css)
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: var(--space-0);
+  padding: var(--space-0);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  background-color: var(--surface-page);
+  color: var(--text-primary);
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Accessibility Skip Link */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-4);
+  z-index: 999;
+  padding: var(--space-2) var(--space-4);
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.skip-link:focus {
+  transform: translateY(var(--space-0));
+}
+
+.sr-only {
+  position: absolute;
+  width: var(--space-px);
+  height: var(--space-px);
+  padding: var(--space-0);
+  margin: calc(-1 * var(--space-px));
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: var(--space-0);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   1. TOP MERCHANT / PARTNER BAR ("İş Yeri / Restoran Girişi")
+   ========================================================================== */
+.partner-bar {
+  background-color: var(--partner-bar-bg);
+  color: var(--text-on-partner);
+  border-bottom: var(--space-px) solid var(--border-partner);
+  font-size: var(--font-size-xs);
+}
+
+.partner-bar-inner {
+  max-width: var(--size-container-max);
+  margin: var(--space-0) auto;
+  padding: var(--space-1-5) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.partner-bar-left,
+.partner-bar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.partner-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-partner-elevated);
+  border: var(--space-px) solid var(--border-partner);
+  color: var(--color-flame-200);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: var(--font-size-2xs);
+}
+
+.partner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1) var(--space-3);
+  min-height: var(--size-stepper-btn);
+  border-radius: var(--radius-xs);
+  border: var(--space-px) solid var(--border-partner);
+  background-color: var(--partner-btn-ghost-bg);
+  color: var(--text-on-partner);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-spring),
+              border-color var(--duration-fast) var(--ease-spring),
+              transform var(--duration-fast) var(--ease-spring);
+}
+
+.partner-btn:hover {
+  border-color: var(--color-flame-500);
+  background-color: var(--color-slate-700);
+}
+
+.partner-btn:active {
+  transform: scale(0.98);
+}
+
+.partner-btn-merchant {
+  background-color: var(--partner-btn-cta-bg);
+  border-color: var(--partner-btn-cta-bg);
+  color: var(--text-on-brand);
+  font-weight: var(--font-weight-bold);
+}
+
+.partner-btn-merchant:hover {
+  background-color: var(--partner-btn-cta-hover);
+  border-color: var(--partner-btn-cta-hover);
+}
+
+.partner-btn svg {
+  width: var(--size-icon-xs);
+  height: var(--size-icon-xs);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   2. STICKY MARKETPLACE HEADER (Brand + Address + Search + Auth Buttons)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: var(--space-0);
+  z-index: 40;
+  background-color: var(--header-bg);
+  backdrop-filter: blur(var(--space-3));
+  border-bottom: var(--space-px) solid var(--border-default);
+  box-shadow: var(--shadow-xs);
+}
+
+.header-inner {
+  max-width: var(--size-container-max);
+  margin: var(--space-0) auto;
+  padding: var(--space-2-5) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.brand-mark-img {
+  width: var(--size-logo);
+  height: var(--size-logo);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xs);
+  flex-shrink: 0;
+}
+
+.brand-text-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.03em;
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+}
+
+.brand-name span {
+  color: var(--brand-primary);
+}
+
+.brand-sub {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+}
+
+.address-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1-5) var(--space-3);
+  min-height: var(--size-touch-min);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-subtle);
+  border: var(--space-px) solid var(--border-default);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-spring),
+              background-color var(--duration-fast) var(--ease-spring);
+}
+
+.address-selector:hover {
+  border-color: var(--brand-primary);
+  background-color: var(--brand-soft-bg);
+}
+
+.address-selector svg {
+  width: var(--size-icon-sm);
+  height: var(--size-icon-sm);
+  color: var(--brand-primary);
+  flex-shrink: 0;
+}
+
+.address-eta-pill {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--cat-food-text);
+  background-color: var(--cat-food-bg);
+  border: var(--space-px) solid var(--cat-food-border);
+  padding: var(--space-0-5) var(--space-2);
+  border-radius: var(--radius-pill);
+}
+
+/* Search Bar */
+.header-search {
+  flex: 1 1 var(--size-search-min);
+  max-width: var(--size-modal-max);
+  position: relative;
+}
+
+.header-search-icon {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--size-icon-sm);
+  height: var(--size-icon-sm);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.header-search-input {
+  width: 100%;
+  min-height: var(--size-touch-min);
+  padding: var(--space-2) var(--space-9) var(--space-2) var(--space-9);
+  border-radius: var(--radius-pill);
+  border: var(--space-px) solid var(--border-default);
+  background-color: var(--surface-subtle);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  transition: border-color var(--duration-fast) var(--ease-spring),
+              background-color var(--duration-fast) var(--ease-spring),
+              box-shadow var(--duration-fast) var(--ease-spring);
+}
+
+.header-search-input:focus {
+  outline: none;
+  background-color: var(--surface-card);
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px var(--brand-soft-border);
+}
+
+.search-kbd {
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  color: var(--text-muted);
+  background-color: var(--surface-card);
+  border: var(--space-px) solid var(--border-default);
+  border-radius: var(--radius-xs);
+  padding: var(--space-0-5) var(--space-1-5);
+  pointer-events: none;
+}
+
+/* Customer Auth Buttons ("Şifre Sıfırla", "Giriş Yap", "Üye Ol") */
+.auth-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.btn-auth {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1-5);
+  min-height: var(--size-touch-min);
+  padding: var(--space-1-5) var(--space-3-5);
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  border: var(--space-px) solid var(--border-default);
+  background-color: var(--surface-card);
+  color: var(--text-primary);
+  transition: background-color var(--duration-fast) var(--ease-spring),
+              border-color var(--duration-fast) var(--ease-spring),
+              transform var(--duration-fast) var(--ease-spring);
+}
+
+.btn-auth:hover {
+  border-color: var(--border-strong);
+  background-color: var(--surface-subtle);
+}
+
+.btn-auth:active {
+  transform: scale(0.98);
+}
+
+.btn-auth svg {
+  width: var(--size-icon-xs);
+  height: var(--size-icon-xs);
+  flex-shrink: 0;
+}
+
+.btn-auth-reset {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--text-secondary);
+}
+
+.btn-auth-reset:hover {
+  background-color: var(--surface-subtle);
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+
+.btn-auth-register {
+  background-color: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: var(--text-on-brand);
+  box-shadow: var(--shadow-xs);
+}
+
+.btn-auth-register:hover {
+  background-color: var(--brand-primary-hover);
+  border-color: var(--brand-primary-hover);
+}
+
+/* ==========================================================================
+   3. STOREFRONT IDENTITY & CAMPAIGN COUPON STRIP
+   ========================================================================== */
+.workspace-shell {
+  max-width: var(--size-container-max);
+  margin: var(--space-0) auto;
+  padding: var(--space-4) var(--space-5) var(--space-12);
+}
+
+.storefront-strip {
+  background-color: var(--surface-card);
+  border: var(--space-px) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3-5) var(--space-5);
+  box-shadow: var(--shadow-xs);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.storefront-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3-5);
+  flex-wrap: wrap;
+}
+
+.storefront-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-pill);
+  background-color: var(--status-success-bg);
+  border: var(--space-px) solid var(--status-success-border);
+  color: var(--status-success-text);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.02em;
+}
+
+.status-dot {
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-pill);
+  background-color: var(--status-success-text);
+}
+
+.storefront-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+.storefront-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.storefront-meta-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.storefront-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-bold);
+  color: var(--cat-sweet-text);
+  background-color: var(--cat-sweet-bg);
+  border: var(--space-px) solid var(--cat-sweet-border);
+  padding: var(--space-0-5) var(--space-2);
+  border-radius: var(--radius-xs);
+}
+
+.meta-sep {
+  color: var(--border-strong);
+}
+
+/* Interactive Campaign Voucher Buttons */
+.voucher-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  flex-wrap: wrap;
+}
+
+.voucher-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1-5) var(--space-3);
+  min-height: var(--size-touch-min);
+  border-radius: var(--radius-md);
+  border: var(--space-px) dashed var(--brand-primary);
+  background-color: var(--brand-soft-bg);
+  color: var(--cat-food-text);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-spring),
+              transform var(--duration-fast) var(--ease-spring);
+}
+
+.voucher-pill:hover {
+  background-color: var(--color-flame-100);
+}
+
+.voucher-pill[aria-pressed="true"] {
+  border-style: solid;
+  border-color: var(--status-success-text);
+  background-color: var(--status-success-bg);
+  color: var(--status-success-text);
+}
+
+.voucher-code {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  padding: var(--space-0-5) var(--space-1-5);
+  border-radius: var(--radius-xs);
+  background-color: var(--surface-card);
+  border: var(--space-px) solid var(--brand-soft-border);
+}
+
+.voucher-info-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1-5) var(--space-3);
+  border-radius: var(--radius-md);
+  background-color: var(--cat-drink-bg);
+  border: var(--space-px) solid var(--cat-drink-border);
+  color: var(--cat-drink-text);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ==========================================================================
+   4. MAIN MARKETPLACE GRID (Menu Area + Sticky Cart Sidebar)
+   ========================================================================== */
+.marketplace-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--size-sidebar-cart);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+/* Category & Sort Control Bar */
+.control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  background-color: var(--surface-card);
+  border: var(--space-px) solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-xs);
+}
+
+.category-tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  flex-wrap: wrap;
+}
+
+.cat-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  min-height: var(--size-touch-min);
+  padding: var(--space-1-5) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: var(--space-px) solid transparent;
+  background-color: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-spring),
+              color var(--duration-fast) var(--ease-spring),
+              border-color var(--duration-fast) var(--ease-spring);
+}
+
+.cat-tab:hover {
+  background-color: var(--surface-subtle);
+  color: var(--text-primary);
+}
+
+.cat-tab.active {
+  background-color: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+
+.cat-tab[data-cat="drink"].active {
+  background-color: var(--cat-drink-accent);
+  color: var(--text-on-brand);
+}
+
+.cat-tab[data-cat="sweet"].active {
+  background-color: var(--cat-sweet-accent);
+  color: var(--text-on-brand);
+}
+
+.cat-tab svg {
+  width: var(--size-icon-xs);
+  height: var(--size-icon-xs);
+  flex-shrink: 0;
+}
+
+.cat-count {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  padding: var(--space-0-5) var(--space-1-5);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-subtle);
+  color: var(--text-secondary);
+}
+
+.cat-tab.active .cat-count {
+  background-color: rgba(255, 255, 255, 0.22);
+  color: var(--text-on-brand);
+}
+
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sort-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+}
+
+.sort-select {
+  min-height: var(--size-touch-min);
+  padding: var(--space-1-5) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: var(--space-px) solid var(--border-default);
+  background-color: var(--surface-subtle);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   5. DUAL-TRACK MENU ("YEMEK AYRI · İÇECEK AYRI" SPLIT BOARD)
+   ========================================================================== */
+.dual-menu-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--size-drink-station);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.dual-menu-board.single-track {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.food-track-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.menu-section {
+  background-color: var(--surface-card);
+  border: var(--space-px) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-xs);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3-5);
+  border-bottom: var(--space-px) solid var(--border-default);
+}
+
+.section-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+}
+
+.section-icon-badge {
+  width: var(--size-touch-min);
+  height: var(--size-touch-min);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.section-icon-badge.food {
+  background-color: var(--cat-food-bg);
+  color: var(--cat-food-accent);
+  border: var(--space-px) solid var(--cat-food-border);
+}
+
+.section-icon-badge.drink {
+  background-color: var(--cat-drink-surface);
+  color: var(--cat-drink-accent);
+  border: var(--space-px) solid var(--cat-drink-border);
+}
+
+.section-icon-badge.sweet {
+  background-color: var(--cat-sweet-bg);
+  color: var(--cat-sweet-accent);
+  border: var(--space-px) solid var(--cat-sweet-border);
+}
+
+.section-icon-badge svg {
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.section-subheading {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.section-pill-count {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-subtle);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Yemeksepeti / Trendyol Yemek Horizontal Dish Card */
+.dish-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--size-dish-card-min), 1fr));
+  gap: var(--space-3);
+}
+
+.dish-row-card {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: var(--space-px) solid var(--dish-card-border);
+  background-color: var(--dish-card-bg);
+  transition: border-color var(--duration-fast) var(--ease-spring),
+              box-shadow var(--duration-fast) var(--ease-spring),
+              transform var(--duration-fast) var(--ease-spring);
+}
+
+.dish-row-card:hover {
+  border-color: var(--dish-card-hover-border);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.dish-row-card.in-cart {
+  border-color: var(--brand-primary);
+  background-color: var(--brand-soft-bg);
+}
+
+.dish-info-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-1-5);
+  min-width: 0;
+  flex: 1;
+}
+
+.dish-tag-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  flex-wrap: wrap;
+}
+
+.dish-tag {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-0-5) var(--space-2);
+  border-radius: var(--radius-xs);
+  background-color: var(--cat-food-bg);
+  color: var(--cat-food-text);
+}
+
+.dish-tag.sweet {
+  background-color: var(--cat-sweet-bg);
+  color: var(--cat-sweet-text);
+}
+
+.dish-rating-chip {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--cat-sweet-text);
+}
+
+.dish-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  line-height: var(--line-height-snug);
+}
+
+.dish-desc {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  line-height: var(--line-height-snug);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dish-bottom-meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.dish-price {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.dish-prep {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  color: var(--text-muted);
+}
+
+/* Dish Media & Quick Action Button */
+.dish-media-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: var(--size-thumb-dish);
+  flex-shrink: 0;
+}
+
+.dish-thumb-box {
+  width: var(--size-thumb-dish);
+  height: var(--size-thumb-drink);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-subtle);
+  border: var(--space-px) solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  overflow: hidden;
+}
+
+.dish-thumb-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+.dish-row-card:hover .dish-thumb-box img {
+  transform: scale(1.06);
+}
+
+.btn-dish-add {
+  width: 100%;
+  min-height: var(--size-stepper-btn);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-xs);
+  border: var(--space-px) solid var(--brand-primary);
+  background-color: var(--brand-primary);
+  color: var(--text-on-brand);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  transition: background-color var(--duration-fast) var(--ease-spring),
+              transform var(--duration-fast) var(--ease-spring);
+}
+
+.btn-dish-add:hover {
+  background-color: var(--brand-primary-hover);
+}
+
+.btn-dish-add:active {
+  transform: scale(0.97);
+}
+
+.card-inline-stepper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--surface-card);
+  border: var(--space-px) solid var(--brand-primary);
+  border-radius: var(--radius-xs);
+  padding: var(--space-0-5);
+}
+
+.card-step-btn {
+  width: var(--space-6);
+  height: var(--space-6);
+  border-radius: var(--radius-xs);
+  border: none;
+  background-color: var(--brand-soft-bg);
+  color: var(--brand-primary);
+  font-weight: var(--font-weight-extrabold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-step-btn:hover {
+  background-color: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+
+.card-step-qty {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   6. DEDICATED BEVERAGE STATION ("İÇECEK İSTASYONU — YEMEKTEN AYRI BÖLÜM")
+   ========================================================================== */
+.drink-station-panel {
+  background-color: var(--drink-station-bg);
+  border: var(--space-px) solid var(--drink-station-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-xs);
+}
+
+.drink-station-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+}
+
+.drink-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2-5) var(--space-3);
+  border-radius: var(--radius-md);
+  background-color: var(--drink-card-bg);
+  border: var(--space-px) solid var(--cat-drink-border);
+  transition: border-color var(--duration-fast) var(--ease-spring),
+              box-shadow var(--duration-fast) var(--ease-spring);
+}
+
+.drink-card:hover {
+  border-color: var(--cat-drink-accent);
+  box-shadow: var(--shadow-xs);
+}
+
+.drink-card.in-cart {
+  border-color: var(--cat-drink-accent);
+  background-color: var(--cat-drink-surface);
+}
+
+.drink-thumb {
+  width: var(--size-thumb-drink);
+  height: var(--size-thumb-drink);
+  border-radius: var(--radius-sm);
+  background-color: var(--cat-drink-bg);
+  border: var(--space-px) solid var(--cat-drink-border);
+  padding: var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.drink-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.drink-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+.drink-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.drink-temp-badge {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-0-5) var(--space-1-5);
+  border-radius: var(--radius-xs);
+  background-color: var(--cat-drink-surface);
+  color: var(--cat-drink-text);
+}
+
+.drink-name {
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.drink-desc {
+  font-size: var(--font-size-2xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drink-action-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1-5);
+  flex-shrink: 0;
+}
+
+.drink-price {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--cat-drink-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.btn-drink-add {
+  min-height: var(--size-stepper-btn);
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-xs);
+  border: var(--space-px) solid var(--cat-drink-accent);
+  background-color: var(--cat-drink-accent);
+  color: var(--text-on-brand);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-spring);
+}
+
+.btn-drink-add:hover {
+  background-color: var(--cat-drink-hover);
+}
+
+/* ==========================================================================
+   7. STICKY SMART CART SIDEBAR ("SEPETİM + YEMEĞİN YANINA İÇECEK ÖNERİSİ")
+   ========================================================================== */
+.cart-sidebar {
+  position: sticky;
+  top: var(--space-20);
+  background-color: var(--cart-panel-bg);
+  border: var(--space-px) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-md);
+}
+
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: var(--space-px) solid var(--border-default);
+}
+
+.cart-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-extrabold);
+}
+
+.cart-title svg {
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+  color: var(--brand-primary);
+}
+
+.cart-badge {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-0-5) var(--space-2-5);
+  border-radius: var(--radius-pill);
+  background-color: var(--brand-soft-bg);
+  color: var(--brand-primary);
+  border: var(--space-px) solid var(--brand-soft-border);
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-height: var(--size-drink-station);
+  overflow-y: auto;
+}
+
+.cart-item-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-subtle);
+  border: var(--space-px) solid var(--border-default);
+}
+
+.cart-item-thumb {
+  width: var(--size-thumb-cart);
+  height: var(--size-thumb-cart);
+  border-radius: var(--radius-xs);
+  background-color: var(--surface-card);
+  border: var(--space-px) solid var(--border-default);
+  padding: var(--space-1);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.cart-item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+.cart-item-cat-dot {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-0) var(--space-1-5);
+  border-radius: var(--radius-xs);
+  background-color: var(--cat-food-bg);
+  color: var(--cat-food-text);
+}
+
+.cart-item-cat-dot.drink {
+  background-color: var(--cat-drink-surface);
+  color: var(--cat-drink-text);
+}
+
+.cart-item-cat-dot.sweet {
+  background-color: var(--cat-sweet-bg);
+  color: var(--cat-sweet-text);
+}
+
+.cart-item-name {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-item-price {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: var(--surface-card);
+  border: var(--space-px) solid var(--border-default);
+  border-radius: var(--radius-xs);
+  padding: var(--space-0-5);
+}
+
+.cart-step-btn {
+  width: var(--space-6);
+  height: var(--space-6);
+  border: none;
+  border-radius: var(--radius-xs);
+  background-color: transparent;
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.cart-step-btn:hover {
+  background-color: var(--brand-soft-bg);
+  color: var(--brand-primary);
+}
+
+.cart-step-val {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  min-width: var(--space-4);
+  text-align: center;
+}
+
+/* Smart Beverage Cross-Sell Box inside Cart */
+.cart-drink-upsell {
+  margin-top: var(--space-3);
+  padding: var(--space-2-5);
+  border-radius: var(--radius-sm);
+  background-color: var(--cart-pairing-bg);
+  border: var(--space-px) solid var(--cart-pairing-border);
+}
+
+.cart-upsell-title {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--cat-drink-text);
+  margin-bottom: var(--space-1-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.cart-upsell-chips {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  flex-wrap: wrap;
+}
+
+.btn-upsell-chip {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
+  border: var(--space-px) solid var(--cat-drink-border);
+  background-color: var(--surface-card);
+  color: var(--cat-drink-text);
+  font-family: inherit;
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.btn-upsell-chip:hover {
+  background-color: var(--cat-drink-accent);
+  border-color: var(--cat-drink-accent);
+  color: var(--text-on-brand);
+}
+
+/* Cart Empty & Summary */
+.cart-empty-box {
+  padding: var(--space-6) var(--space-3);
+  text-align: center;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.cart-empty-icon {
+  width: var(--space-10);
+  height: var(--space-10);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.cart-summary {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: var(--space-px) solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.summary-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.summary-line.discount {
+  color: var(--status-success-text);
+  font-weight: var(--font-weight-bold);
+}
+
+.summary-line.total {
+  margin-top: var(--space-1);
+  padding-top: var(--space-2);
+  border-top: var(--space-px) dashed var(--border-default);
+  font-family: var(--font-display);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--text-primary);
+}
+
+.summary-val {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-line.total .summary-val {
+  font-size: var(--font-size-lg);
+  color: var(--brand-primary);
+}
+
+.btn-checkout {
+  margin-top: var(--space-2-5);
+  width: 100%;
+  min-height: var(--space-11);
+  padding: var(--space-2-5) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: none;
+  background-color: var(--brand-primary);
+  color: var(--text-on-brand);
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-extrabold);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-spring);
+}
+
+.btn-checkout:hover:not(:disabled) {
+  background-color: var(--brand-primary-hover);
+}
+
+.btn-checkout:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   8. ACCESSIBLE 4-TAB MODAL (Giriş / Üye Ol / Şifre Sıfırla / İş Yeri Girişi)
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: var(--space-0);
+  z-index: 100;
+  background-color: var(--surface-backdrop);
+  backdrop-filter: blur(var(--space-1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.modal-backdrop[hidden] {
+  display: none;
+}
+
+.modal-dialog {
+  width: 100%;
+  max-width: var(--size-modal-max);
+  background-color: var(--surface-card);
+  border-radius: var(--radius-xl);
+  border: var(--space-px) solid var(--border-default);
+  box-shadow: var(--shadow-modal);
+  overflow: hidden;
+}
+
+.modal-top {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: var(--space-px) solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.modal-heading {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+}
+
+.btn-modal-close {
+  width: var(--size-touch-min);
+  height: var(--size-touch-min);
+  border-radius: var(--radius-pill);
+  border: var(--space-px) solid var(--border-default);
+  background-color: var(--surface-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-tablist {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-1);
+  padding: var(--space-1-5) var(--space-5);
+  background-color: var(--surface-subtle);
+  border-bottom: var(--space-px) solid var(--border-default);
+}
+
+.modal-tab {
+  min-height: var(--size-touch-min);
+  padding: var(--space-1-5) var(--space-2);
+  border-radius: var(--radius-xs);
+  border: none;
+  background-color: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.modal-tab[aria-selected="true"] {
+  background-color: var(--surface-card);
+  color: var(--brand-primary);
+  box-shadow: var(--shadow-xs);
+}
+
+.modal-body {
+  padding: var(--space-5);
+}
+
+.modal-panel[hidden] {
+  display: none;
+}
+
+.form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3-5);
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.field-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.field-input {
+  min-height: var(--size-touch-min);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: var(--space-px) solid var(--border-default);
+  background-color: var(--surface-subtle);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+}
+
+.field-input:focus {
+  outline: none;
+  background-color: var(--surface-card);
+  border-color: var(--brand-primary);
+}
+
+.field-input[aria-invalid="true"] {
+  border-color: var(--status-danger-text);
+  background-color: var(--status-danger-bg);
+}
+
+.field-error {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--status-danger-text);
+}
+
+.field-error[hidden] {
+  display: none;
+}
+
+.preview-boundary-notice {
+  margin-top: var(--space-3-5);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background-color: var(--brand-soft-bg);
+  border: var(--space-px) solid var(--brand-soft-border);
+  color: var(--cat-food-text);
+  font-size: var(--font-size-xs);
+}
+
+.preview-boundary-notice[hidden] {
+  display: none;
+}
+
+/* Content States (Empty / Error / Loading) */
+.state-card {
+  padding: var(--space-8) var(--space-5);
+  text-align: center;
+  background-color: var(--surface-card);
+  border: var(--space-px) solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+
+/* Toast Notification */
+.toast-region {
+  position: fixed;
+  bottom: var(--space-5);
+  right: var(--space-5);
+  z-index: 120;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background-color: var(--surface-partner);
+  color: var(--text-on-partner);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(var(--space-20));
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--duration-normal) var(--ease-spring),
+              opacity var(--duration-normal) var(--ease-spring);
+}
+
+.toast-region.visible {
+  transform: translateY(var(--space-0));
+  opacity: 1;
+}
+
+/* ==========================================================================
+   9. RESPONSIVE BREAKPOINTS & REDUCED MOTION
+   ========================================================================== */
+@media (width <= 58em) {
+  .dual-menu-board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (width <= 52em) {
+  .marketplace-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cart-sidebar {
+    position: static;
+  }
+}
+
+@media (width <= 42em) {
+  .partner-bar-inner,
+  .header-inner,
+  .workspace-shell {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  .modal-tablist {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
