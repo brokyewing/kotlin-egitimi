@@ -58,6 +58,9 @@ class BrokyFoodServer(
             (rawPath == "/" || rawPath == "/index.html") && method == "GET" -> {
                 serveClasspathResource(ex, "/static/index.html", "text/html; charset=utf-8")
             }
+            rawPath == "/app.js" && method == "GET" -> {
+                serveClasspathResource(ex, "/static/app.js", "application/javascript; charset=utf-8")
+            }
             (rawPath == "/api/health" || rawPath == "/health") && method == "GET" -> {
                 val count = db.healthCheck()
                 sendJson(ex, 200, mapOf("status" to "ok", "foods" to count))
