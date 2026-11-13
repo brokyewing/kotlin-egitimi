@@ -17,6 +17,7 @@ class BrokyFoodServer(
     private val gson = Gson()
     private val usernameRegex = Regex("^[a-zA-Z0-9_.-]{1,64}$")
     private val imageNameRegex = Regex("^[a-zA-Z0-9_.-]+\\.png$")
+    private val fontNameRegex = Regex("^[a-zA-Z0-9_.-]+\\.woff2$")
     private val httpServer: HttpServer = HttpServer.create(InetSocketAddress(port), 0)
 
     val boundPort: Int
@@ -69,6 +70,14 @@ class BrokyFoodServer(
             }
             rawPath == "/app.js" && method == "GET" -> {
                 serveClasspathResource(ex, "/static/app.js", "application/javascript; charset=utf-8")
+            }
+            rawPath.startsWith("/fonts/") && method == "GET" -> {
+                val fileName = rawPath.removePrefix("/fonts/")
+                if (!fontNameRegex.matches(fileName) || fileName.contains("..")) {
+                    sendJson(ex, 400, BaseApiResponse(0, "Gecersiz font adi"))
+                    return
+                }
+                serveClasspathResource(ex, "/static/fonts/$fileName", "font/woff2", cacheSeconds = 604800)
             }
             (rawPath == "/api/health" || rawPath == "/health") && method == "GET" -> {
                 val count = db.healthCheck()

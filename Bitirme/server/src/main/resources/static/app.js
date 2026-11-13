@@ -201,14 +201,14 @@
       btnLogin: 'Giriş Yap',
       btnRegister: 'Üye Ol',
       storeStatus: 'AÇIK · HIZLI TESLİMAT',
-      storeHeading: 'LezzetKapıda Merkez Mutfak & İçecek İstasyonu',
+      storeHeading: 'LezzetKapıda Merkez Mutfak · İçecek İstasyonu',
       minOrder: 'Min. Sepet ₺100',
       deliveryFeeMeta: 'Ücretsiz Teslimat',
       packingNote: 'Sıcak Yemek & Soğuk İçecek Ayrı Termal Çanta',
       couponApply: '200₺+ Siparişe 40₺ İndirim Uygula',
       couponApplied: 'LEZZET40 Aktif (-₺40 İndirim)',
       separateNote: 'Yemek Ayrı · İçecek Ayrı İstasyon',
-      catAll: 'Tümü · Bölünmüş Görünüm',
+      catAll: 'Tüm Menü',
       catFood: 'Ana Yemekler',
       catDrink: 'İçecekler',
       catSweet: 'Tatlılar',
@@ -217,11 +217,11 @@
       sortAsc: 'Fiyat: Düşükten Yükseğe',
       sortDesc: 'Fiyat: Yüksekten Düşüğe',
       sortName: 'İsme Göre (A-Z)',
-      secFoodTitle: 'Ana Yemekler & Izgaralar',
+      secFoodTitle: 'Ana Yemekler · Izgaralar',
       secFoodSub: 'Sıcak mutfak hattı — sipariş anında hazırlanır',
       secDrinkTitle: 'İçecek İstasyonu (Ayrı Paket)',
       secDrinkSub: 'Yemekten bağımsız soğuk (+4°C) ve sıcak içecek bölümü',
-      secSweetTitle: 'Tatlılar & Taş Fırın',
+      secSweetTitle: 'Tatlılar · Taş Fırın',
       secSweetSub: 'Günlük taze şerbetli ve sütlü tatlılar',
       itemUnit: 'ürün',
       addFoodBtn: '+ Ekle',
@@ -261,14 +261,14 @@
       btnLogin: 'Log In',
       btnRegister: 'Sign Up',
       storeStatus: 'OPEN · FAST DELIVERY',
-      storeHeading: 'LezzetKapıda Central Kitchen & Beverage Station',
+      storeHeading: 'LezzetKapıda Central Kitchen · Beverage Station',
       minOrder: 'Min. Order ₺100',
       deliveryFeeMeta: 'Free Delivery',
       packingNote: 'Hot Meals & Cold Drinks Packed Separately',
       couponApply: 'Apply ₺40 Off on Orders ₺200+',
       couponApplied: 'LEZZET40 Applied (-₺40 Off)',
       separateNote: 'Separate Food & Drink Stations',
-      catAll: 'All · Split Station View',
+      catAll: 'All Items',
       catFood: 'Main Courses',
       catDrink: 'Beverages',
       catSweet: 'Desserts',
@@ -277,11 +277,11 @@
       sortAsc: 'Price: Low to High',
       sortDesc: 'Price: High to Low',
       sortName: 'Name (A-Z)',
-      secFoodTitle: 'Main Courses & Grills',
+      secFoodTitle: 'Main Courses · Grills',
       secFoodSub: 'Hot kitchen line — cooked fresh to order',
       secDrinkTitle: 'Beverage Station (Separate Pack)',
       secDrinkSub: 'Dedicated chilled (+4°C) and hot drinks bar',
-      secSweetTitle: 'Desserts & Bakery',
+      secSweetTitle: 'Desserts · Bakery',
       secSweetSub: 'Freshly baked pastries and milk desserts',
       itemUnit: 'items',
       addFoodBtn: '+ Add',
@@ -1136,16 +1136,22 @@
           return;
         }
         if (e.key === 'Tab') {
-          const focusables = backdrop.querySelectorAll(
-            'button:not([hidden]), .modal-panel:not([hidden]) input, [tabindex]:not([tabindex="-1"])'
+          const focusables = Array.from(backdrop.querySelectorAll(
+            'button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])'
+          )).filter(node =>
+            !node.disabled &&
+            !node.hidden &&
+            node.getAttribute('aria-hidden') !== 'true' &&
+            node.closest('[hidden]') === null &&
+            node.getClientRects().length > 0
           );
           if (focusables.length > 0) {
             const first = focusables[0];
             const last = focusables[focusables.length - 1];
-            if (e.shiftKey && document.activeElement === first) {
+            if (e.shiftKey && (document.activeElement === first || !backdrop.contains(document.activeElement))) {
               e.preventDefault();
               last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
+            } else if (!e.shiftKey && (document.activeElement === last || !backdrop.contains(document.activeElement))) {
               e.preventDefault();
               first.focus();
             }

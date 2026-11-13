@@ -1,70 +1,103 @@
 /**
- * LezzetKapıda — Three-Layer Design Token System
- * Layer 1: Primitive Tokens (Raw Scales)
- * Layer 2: Semantic Tokens (Purpose Aliases)
- * Layer 3: Component Tokens (Surface & Control Specific)
+ * LezzetKapıda — "Kapı" Design Tokens (v2)
+ *
+ * Layer 1: Primitive Tokens   (raw palette, scale, type, elevation)
+ * Layer 2: Semantic Tokens    (purpose aliases: surface, text, brand, category)
+ * Layer 3: Component Tokens   (surface & control specific)
+ *
+ * Kural: styles.css yalnızca token tüketir, ham değer yazmaz.
  */
+
+/* ==========================================================================
+   DISPLAY SERIF — self-hosted (Fraunces, OFL)
+   Türkçe karakterler için latin + latin-ext alt kümeleri.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Fraunces Display';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('fonts/fraunces-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fraunces Display';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('fonts/fraunces-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
 
 :root {
   /* ==========================================================================
-     1. PRIMITIVE TOKENS — Raw Palette, Spacing, Typography, Radii, Elevation
+     1. PRIMITIVE TOKENS
      ========================================================================== */
 
-  /* Neutral Warm Stone & Slate Primitives */
-  --color-stone-50: #FAF8F5;
-  --color-stone-100: #F4F0EA;
-  --color-stone-200: #E7E0D6;
-  --color-stone-300: #D5CBBF;
+  /* — Paper & ink ---------------------------------------------------------- */
+  --clr-paper-50: #FFFDF8;
+  --clr-paper-100: #FAF5EB;
+  --clr-paper-200: #F4EEE3;
+  --clr-paper-300: #EDE5D6;
+  --clr-paper-400: #E2D8C5;
 
-  --color-slate-950: #0B0F19;
-  --color-slate-900: #111827;
-  --color-slate-800: #1E293B;
-  --color-slate-700: #334155;
-  --color-slate-600: #475569;
-  --color-slate-500: #64748B;
-  --color-slate-200: #E2E8F0;
-  --color-slate-100: #F1F5F9;
-  --color-white: #FFFFFF;
+  --clr-ink-900: #1A1410;
+  --clr-ink-800: #2B221C;
+  --clr-ink-700: #3D332B;
+  --clr-ink-500: #6B5F53;
+  --clr-ink-400: #857868;
+  --clr-ink-300: #9A8D7F;
 
-  /* Brand Flame / Terracotta Primitives (Food & Primary Actions) */
-  --color-flame-50: #FFF7ED;
-  --color-flame-100: #FFEDD5;
-  --color-flame-200: #FED7AA;
-  --color-flame-500: #F97316;
-  --color-flame-600: #EA580C;
-  --color-flame-700: #C2410C;
-  --color-flame-800: #9A3412;
+  --clr-line: #DFD5C3;
+  --clr-line-strong: #C9BCA6;
 
-  /* Frost Cyan / Sky Primitives (Dedicated Beverage Station) */
-  --color-frost-50: #F0F9FF;
-  --color-frost-100: #E0F2FE;
-  --color-frost-200: #BAE6FD;
-  --color-frost-600: #0284C7;
-  --color-frost-700: #0369A1;
-  --color-frost-800: #075985;
+  /* — Ember (hot kitchen, primary actions) -------------------------------- */
+  --clr-ember-50: #FBEEE7;
+  --clr-ember-100: #F6DACA;
+  --clr-ember-200: #EBBBA4;
+  --clr-ember-500: #D2542B;
+  --clr-ember-600: #B23F1C;
+  --clr-ember-700: #8E3214;
 
-  /* Amber / Saffron Primitives (Desserts, Bakery & Ratings) */
-  --color-amber-50: #FFFBEB;
-  --color-amber-100: #FEF3C7;
-  --color-amber-200: #FDE68A;
-  --color-amber-600: #D97706;
-  --color-amber-700: #B45309;
-  --color-amber-800: #92400E;
+  /* — Glacier teal (cold beverage station) -------------------------------- */
+  --clr-teal-50: #E9F2F0;
+  --clr-teal-100: #CFE4E0;
+  --clr-teal-200: #A9CDC7;
+  --clr-teal-600: #1C6B63;
+  --clr-teal-700: #14524C;
 
-  /* Emerald & Ruby Primitives (Campaigns, Delivery Status & Validation) */
-  --color-emerald-50: #ECFDF5;
-  --color-emerald-100: #D1FAE5;
-  --color-emerald-200: #A7F3D0;
-  --color-emerald-700: #047857;
-  --color-emerald-800: #065F46;
+  /* — Saffron (desserts, ratings) ----------------------------------------- */
+  --clr-saffron-50: #FBF2DC;
+  --clr-saffron-100: #F3E2BC;
+  --clr-saffron-600: #9A6E1B;
+  --clr-saffron-700: #7A5613;
 
-  --color-ruby-50: #FEF2F2;
-  --color-ruby-100: #FEE2E2;
-  --color-ruby-200: #FECACA;
-  --color-ruby-600: #DC2626;
-  --color-ruby-700: #B91C1C;
+  /* — Espresso (partner strip, inverse surfaces) -------------------------- */
+  --clr-espresso: #17110E;
+  --clr-espresso-2: #241B16;
+  --clr-espresso-line: #3A2E26;
+  --clr-espresso-fg: #D8CBB8;
+  --clr-espresso-fg-muted: #9D8F7E;
 
-  /* Spacing & Sizing Scale (4px Grid) */
+  /* — Status -------------------------------------------------------------- */
+  --clr-ruby-50: #FCEDEA;
+  --clr-ruby-200: #F2C6BF;
+  --clr-ruby-600: #B3261E;
+  --clr-ruby-700: #8E1D17;
+
+  --clr-green-50: #EAF3EC;
+  --clr-green-700: #2B6A43;
+
+  /* — White --------------------------------------------------------------- */
+  --clr-white: #FFFFFF;
+
+  /* — Spacing scale (4px grid) -------------------------------------------- */
   --space-0: 0;
   --space-px: 1px;
   --space-0-5: 2px;
@@ -86,148 +119,197 @@
   --space-14: 56px;
   --space-16: 64px;
   --space-20: 80px;
-  --space-24: 96px;
 
-  /* Layout Dimensions */
-  --size-container-max: 1420px;
-  --size-sidebar-cart: 300px;
-  --size-drink-station: 270px;
-  --size-modal-max: 500px;
-  --size-search-min: 200px;
-  --size-dish-card-min: 215px;
-  --size-thumb-dish: 80px;
-  --size-thumb-drink: 56px;
+  /* — Layout -------------------------------------------------------------- */
+  --layout-max: 1480px;
+  --layout-gutter: 24px;
+  --layout-cart: 336px;
+  --layout-drink-col: 292px;
+  --layout-modal: 520px;
+  --layout-search: 560px;
+  --header-h: 76px;
+  --partner-h: 40px;
+
+  /* — Component sizes ----------------------------------------------------- */
+  --size-thumb-dish: 132px;
+  --size-thumb-dish-sm: 96px;
+  --size-thumb-drink: 58px;
   --size-thumb-cart: 44px;
   --size-icon-xs: 14px;
   --size-icon-sm: 16px;
   --size-icon-md: 18px;
-  --size-icon-lg: 22px;
-  --size-logo: 38px;
-  --size-touch-min: 38px;
-  --size-stepper-btn: 30px;
+  --size-icon-lg: 20px;
+  --size-logo: 36px;
+  --size-touch: 40px;
+  --size-input: 44px;
+  --size-btn-primary: 46px;
 
-  /* Border Radius Scale */
-  --radius-xs: 6px;
+  /* — Radii --------------------------------------------------------------- */
+  --radius-xs: 4px;
   --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
   --radius-pill: 999px;
 
-  /* Typography Primitives */
-  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* — Typography ---------------------------------------------------------- */
+  --font-display: 'Fraunces Display', 'Iowan Old Style', 'Palatino Linotype',
+    Palatino, Georgia, 'Times New Roman', serif;
+  --font-sans: 'Segoe UI Variable Text', 'Segoe UI', -apple-system,
+    BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', 'Cascadia Code', Consolas,
+    'SF Mono', Menlo, monospace;
 
-  --font-size-2xs: 11px;
-  --font-size-xs: 12px;
-  --font-size-sm: 13px;
-  --font-size-base: 14px;
-  --font-size-md: 15px;
-  --font-size-lg: 17px;
-  --font-size-xl: 20px;
-  --font-size-2xl: 24px;
+  --font-size-2xs: 10px;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 15px;
+  --font-size-xl: 17px;
+  --font-size-2xl: 19px;
+  --font-size-3xl: 22px;
+  --font-size-4xl: 28px;
+  --font-size-hero: clamp(2rem, 1.2rem + 2.4vw, 2.6rem);
 
-  --line-height-tight: 1.2;
-  --line-height-snug: 1.35;
-  --line-height-normal: 1.5;
+  --line-height-tight: 1.12;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.55;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
 
-  /* Elevation & Shadows */
-  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
-  --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 8px 20px -4px rgba(15, 23, 42, 0.09);
-  --shadow-lg: 0 18px 36px -8px rgba(15, 23, 42, 0.14);
-  --shadow-modal: 0 24px 48px -12px rgba(11, 15, 25, 0.36);
+  --tracking-label: 0.11em;
+  --tracking-tight: -0.015em;
 
-  /* Motion Tokens */
+  /* — Elevation (ink-tinted, paper-soft) ---------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(26, 20, 16, 0.05);
+  --shadow-sm: 0 2px 8px -4px rgba(26, 20, 16, 0.16);
+  --shadow-md: 0 10px 24px -14px rgba(26, 20, 16, 0.3);
+  --shadow-lg: 0 24px 48px -22px rgba(26, 20, 16, 0.4);
+  --shadow-modal: 0 40px 80px -32px rgba(26, 20, 16, 0.55);
+  --shadow-lift: 0 14px 30px -20px rgba(26, 20, 16, 0.42);
+
+  /* — Motion -------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration-fast: 150ms;
-  --duration-normal: 220ms;
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --duration-slow: 320ms;
 
   /* ==========================================================================
-     2. SEMANTIC TOKENS — Domain & Purpose Aliases
+     2. SEMANTIC TOKENS
      ========================================================================== */
 
-  --surface-page: var(--color-stone-50);
-  --surface-card: var(--color-white);
-  --surface-subtle: var(--color-stone-100);
-  --surface-partner: var(--color-slate-950);
-  --surface-partner-elevated: var(--color-slate-800);
-  --surface-backdrop: rgba(11, 15, 25, 0.62);
+  --surface-page: var(--clr-paper-200);
+  --surface-card: var(--clr-paper-50);
+  --surface-raised: var(--clr-white);
+  --surface-sunken: var(--clr-paper-300);
+  --surface-photo: var(--clr-white);
+  --surface-partner: var(--clr-espresso);
+  --surface-partner-raised: var(--clr-espresso-2);
 
-  --text-primary: var(--color-slate-900);
-  --text-secondary: var(--color-slate-700);
-  --text-muted: var(--color-slate-600);
-  --text-on-brand: var(--color-white);
-  --text-on-partner: var(--color-slate-100);
-  --text-on-partner-muted: var(--color-slate-200);
+  --text-primary: var(--clr-ink-900);
+  --text-secondary: var(--clr-ink-700);
+  --text-muted: var(--clr-ink-500);
+  --text-faint: var(--clr-ink-400);
+  --text-on-brand: var(--clr-paper-50);
+  --text-on-partner: var(--clr-espresso-fg);
+  --text-on-partner-muted: var(--clr-espresso-fg-muted);
 
-  --border-default: var(--color-stone-200);
-  --border-strong: var(--color-stone-300);
-  --border-partner: var(--color-slate-700);
-  --focus-ring: var(--color-flame-600);
+  --border-default: var(--clr-line);
+  --border-strong: var(--clr-line-strong);
+  --border-partner: var(--clr-espresso-line);
+  --focus-ring: var(--clr-ink-900);
 
-  /* Marketplace Primary Brand (Flame Orange) */
-  --brand-primary: var(--color-flame-600);
-  --brand-primary-hover: var(--color-flame-700);
-  --brand-primary-active: var(--color-flame-800);
-  --brand-soft-bg: var(--color-flame-50);
-  --brand-soft-border: var(--color-flame-200);
+  --brand: var(--clr-ember-600);
+  --brand-hover: var(--clr-ember-700);
+  --brand-strong: var(--clr-ember-500);
+  --brand-soft: var(--clr-ember-50);
+  --brand-soft-border: var(--clr-ember-100);
 
-  /* Category 1: Sıcak Ana Yemekler (Warm Flame) */
-  --cat-food-accent: var(--color-flame-600);
-  --cat-food-bg: var(--color-flame-50);
-  --cat-food-border: var(--color-flame-200);
-  --cat-food-text: var(--color-flame-800);
+  /* Category: sıcak mutfak */
+  --cat-food-accent: var(--clr-ember-600);
+  --cat-food-bg: var(--clr-ember-50);
+  --cat-food-border: var(--clr-ember-100);
+  --cat-food-text: var(--clr-ember-700);
 
-  /* Category 2: Soğuk & Sıcak İçecek İstasyonu (Crisp Frost Blue) */
-  --cat-drink-accent: var(--color-frost-600);
-  --cat-drink-hover: var(--color-frost-700);
-  --cat-drink-bg: var(--color-frost-50);
-  --cat-drink-surface: var(--color-frost-100);
-  --cat-drink-border: var(--color-frost-200);
-  --cat-drink-text: var(--color-frost-800);
+  /* Category: içecek istasyonu */
+  --cat-drink-accent: var(--clr-teal-600);
+  --cat-drink-hover: var(--clr-teal-700);
+  --cat-drink-bg: var(--clr-teal-50);
+  --cat-drink-surface: var(--clr-teal-50);
+  --cat-drink-border: var(--clr-teal-100);
+  --cat-drink-text: var(--clr-teal-700);
 
-  /* Category 3: Tatlılar & Fırın (Warm Saffron Amber) */
-  --cat-sweet-accent: var(--color-amber-600);
-  --cat-sweet-bg: var(--color-amber-50);
-  --cat-sweet-border: var(--color-amber-200);
-  --cat-sweet-text: var(--color-amber-800);
+  /* Category: tatlı & fırın */
+  --cat-sweet-accent: var(--clr-saffron-600);
+  --cat-sweet-bg: var(--clr-saffron-50);
+  --cat-sweet-border: var(--clr-saffron-100);
+  --cat-sweet-text: var(--clr-saffron-700);
 
-  /* Status & Voucher Semantics */
-  --status-success-bg: var(--color-emerald-50);
-  --status-success-border: var(--color-emerald-200);
-  --status-success-text: var(--color-emerald-700);
-
-  --status-danger-bg: var(--color-ruby-50);
-  --status-danger-border: var(--color-ruby-200);
-  --status-danger-text: var(--color-ruby-700);
+  --status-success-bg: var(--clr-green-50);
+  --status-success-text: var(--clr-green-700);
+  --status-danger-bg: var(--clr-ruby-50);
+  --status-danger-border: var(--clr-ruby-200);
+  --status-danger-text: var(--clr-ruby-700);
 
   /* ==========================================================================
-     3. COMPONENT TOKENS — Specific Surface Controls
+     3. COMPONENT TOKENS
      ========================================================================== */
 
-  --partner-bar-bg: var(--surface-partner);
-  --partner-btn-cta-bg: var(--brand-primary);
-  --partner-btn-cta-hover: var(--brand-primary-hover);
-  --partner-btn-ghost-bg: var(--surface-partner-elevated);
+  /* Partner strip */
+  --partner-bg: var(--surface-partner);
+  --partner-fg: var(--text-on-partner);
+  --partner-fg-muted: var(--text-on-partner-muted);
+  --partner-btn-hover: rgba(255, 253, 248, 0.08);
+  --partner-btn-active: var(--surface-partner-raised);
 
-  --header-bg: rgba(255, 255, 255, 0.96);
-  --dish-card-bg: var(--surface-card);
-  --dish-card-border: var(--border-default);
-  --dish-card-hover-border: var(--brand-soft-border);
+  /* Header */
+  --header-bg: rgba(244, 238, 227, 0.88);
+  --header-border: var(--border-default);
+  --search-bg: var(--surface-card);
+  --search-border: var(--border-default);
+  --search-border-focus: var(--border-strong);
 
-  --drink-station-bg: var(--cat-drink-bg);
-  --drink-station-border: var(--cat-drink-border);
+  /* Tabs & control bar */
+  --tab-bg: transparent;
+  --tab-fg: var(--text-secondary);
+  --tab-active-bg: var(--clr-ink-900);
+  --tab-active-fg: var(--clr-paper-50);
+  --tab-count-bg: var(--surface-sunken);
+  --tab-active-count-bg: rgba(255, 253, 248, 0.16);
+
+  /* Menu cards */
+  --card-bg: var(--surface-card);
+  --card-border: var(--border-default);
+  --card-border-hover: var(--border-strong);
+  --card-bg-in-cart: var(--clr-paper-100);
+  --dish-media-bg: var(--surface-photo);
+
+  /* Beverage station */
+  --drink-panel-bg: var(--cat-drink-bg);
+  --drink-panel-border: var(--cat-drink-border);
   --drink-card-bg: var(--surface-card);
 
-  --cart-panel-bg: var(--surface-card);
-  --cart-pairing-bg: var(--cat-drink-bg);
-  --cart-pairing-border: var(--cat-drink-border);
+  /* Cart */
+  --cart-bg: var(--surface-card);
+  --cart-border: var(--border-default);
+  --cart-item-bg: var(--clr-paper-100);
+  --cart-item-border: var(--clr-paper-400);
+  --cart-rule: var(--border-strong);
+
+  /* Modal */
+  --modal-bg: var(--surface-card);
+  --modal-border: var(--border-default);
+  --backdrop: rgba(23, 17, 14, 0.58);
+  --input-bg: var(--clr-paper-100);
+  --input-bg-focus: var(--surface-raised);
+  --input-border: var(--border-default);
+
+  /* Feedback */
+  --toast-bg: var(--clr-espresso);
+  --toast-fg: var(--clr-paper-50);
 }
